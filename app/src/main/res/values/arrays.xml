@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: crDroid Android Project
+     SPDX-FileCopyrightText: The OmniROM Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <string-array name="color_theme_entries" translatable="false">
+        <item>@string/omnijaws_theme_light</item>
+        <item>@string/omnijaws_theme_dark</item>
+        <item>@string/omnijaws_theme_system</item>
+    </string-array>
+
+    <string-array name="color_theme_values" translatable="false">
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="bg_transparency_entries" translatable="false">
+        <item>@string/omnijaws_trans_semi</item>
+        <item>@string/omnijaws_trans_full</item>
+        <item>@string/omnijaws_trans_solid</item>
+    </string-array>
+
+    <string-array name="bg_transparency_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
+
+    <string-array name="app_icon_theme_entries" translatable="false">
+        <item>@string/omnijaws_theme_light</item>
+        <item>@string/omnijaws_theme_dark</item>
+        <item>@string/omnijaws_theme_system</item>
+    </string-array>
+
+    <string-array name="app_icon_theme_values" translatable="false">
+        <item>3</item>
+        <item>2</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="widget_icon_theme_entries" translatable="false">
+        <item>@string/omnijaws_theme_follow_app</item>
+        <item>@string/omnijaws_theme_light</item>
+        <item>@string/omnijaws_theme_dark</item>
+        <item>@string/omnijaws_theme_follow_widget</item>
+    </string-array>
+
+    <string-array name="widget_icon_theme_values" translatable="false">
+        <item>4</item>
+        <item>3</item>
+        <item>2</item>
+        <item>5</item>
+    </string-array>
+
+    <!-- IchthysOS weather settings: Open-Meteo + MET Norway are keyless & most accurate;
+         wttr.in is a keyless fallback; OpenWeatherMap uses the free 2.5 API + a baked key. -->
+    <string-array name="weather_provider_entries" translatable="false">
+        <item>@string/omnijaws_provider_openmeteo</item>
+        <item>@string/omnijaws_provider_metnorway</item>
+        <item>@string/omnijaws_provider_wttrin</item>
+        <item>@string/omnijaws_provider_openweathermap</item>
+    </string-array>
+    <string-array name="weather_provider_values" translatable="false">
+        <item>3</item>
+        <item>1</item>
+        <item>5</item>
+        <item>0</item>
+    </string-array>
+
+    <!-- IchthysOS: built-in weather icon packs (each has drawables named <prefix>_<code>).
+         Only monochrome sets are offered: the status-bar weather tints icons (SRC_IN), which
+         turns filled/colored packs (e.g. google_new) into a solid blob. -->
+    <string-array name="weather_icon_pack_entries" translatable="false">
+        <item>Tabler</item>
+        <item>Outline</item>
+        <item>Nothing</item>
+    </string-array>
+    <string-array name="weather_icon_pack_values" translatable="false">
+        <item>org.omnirom.omnijaws.tabler</item>
+        <item>org.omnirom.omnijaws.outline</item>
+        <item>org.omnirom.omnijaws.nothing</item>
+    </string-array>
+
+    <string-array name="weather_units_entries">
+        <item>@string/weather_units_metric</item>
+        <item>@string/weather_units_imperial</item>
+    </string-array>
+    <string-array name="weather_units_values" translatable="false">
+        <item>0</item>
+        <item>1</item>
+    </string-array>
+
+    <string-array name="weather_interval_entries">
+        <item>@string/weather_interval_1h</item>
+        <item>@string/weather_interval_2h</item>
+        <item>@string/weather_interval_3h</item>
+        <item>@string/weather_interval_6h</item>
+        <item>@string/weather_interval_12h</item>
+    </string-array>
+    <string-array name="weather_interval_values" translatable="false">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>6</item>
+        <item>12</item>
+    </string-array>
+</resources>

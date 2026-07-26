@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+     SPDX-FileCopyrightText: crDroid Android Project
+     SPDX-FileCopyrightText: The OmniROM Project
+     SPDX-License-Identifier: Apache-2.0
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- App -->
+    <string name="omnijaws_app_name" translatable="false">OmniJaws</string>
+
+    <!-- Weather Providers -->
+    <string name="omnijaws_provider_openweathermap" translatable="false">OpenWeatherMap</string>
+    <string name="omnijaws_provider_metnorway" translatable="false">MET Norway</string>
+    <string name="omnijaws_provider_pirate_weather" translatable="false">Pirate Weather</string>
+    <string name="omnijaws_provider_openmeteo" translatable="false">Open-Meteo</string>
+    <string name="omnijaws_provider_wttrin" translatable="false">wttr.in</string>
+    <string name="weather_icon_pack_title">Icon pack</string>
+    <!-- Forward-port: strings previously provided by com.crdroid.apps.resources -->
+    <string name="omnijaws_theme_light">Light</string>
+    <string name="omnijaws_theme_dark">Dark</string>
+    <string name="omnijaws_theme_system">Follow system</string>
+    <string name="omnijaws_theme_follow_app">Follow app</string>
+    <string name="omnijaws_theme_follow_widget">Follow widget</string>
+    <string name="omnijaws_trans_solid">Solid</string>
+    <string name="omnijaws_trans_semi">Semi-transparent</string>
+    <string name="omnijaws_trans_full">Transparent</string>
+    <string name="omnijaws_activity_title">Weather</string>
+    <string name="omnijaws_weather_config_title">Weather settings</string>
+    <string name="omnijaws_location_browse_activity_title">Choose location</string>
+    <string name="omnijaws_weather_widget">Weather</string>
+    <string name="omnijaws_weather_widget_desc">Weather widget</string>
+    <string name="omnijaws_city_unkown">Unknown</string>
+    <string name="owm_api_key" translatable="false"></string>
+    <string name="owm_api_key_1" translatable="false"></string>
+    <string name="owm_api_key_2" translatable="false"></string>
+
+    <!-- IchthysOS minimal weather settings -->
+    <string name="weather_enable_title">Enable weather</string>
+    <string name="weather_enable_summary">Fetch weather for the lock screen and status bar (uses this device\'s location)</string>
+    <string name="weather_provider_title">Weather provider</string>
+    <string name="weather_units_title">Units</string>
+    <string name="weather_units_metric">Metric (°C)</string>
+    <string name="weather_units_imperial">Imperial (°F)</string>
+    <string name="weather_interval_title">Update interval</string>
+    <string name="weather_interval_1h">Every hour</string>
+    <string name="weather_interval_2h">Every 2 hours</string>
+    <string name="weather_interval_3h">Every 3 hours</string>
+    <string name="weather_interval_6h">Every 6 hours</string>
+    <string name="weather_interval_12h">Every 12 hours</string>
+</resources>

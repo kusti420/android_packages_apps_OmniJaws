@@ -1,0 +1,62 @@
+android_app {
+  name: "OmniJaws",
+  manifest: "app/src/main/AndroidManifest.xml",
+  platform_apis: true,
+  system_ext_specific: true,
+
+  srcs: [
+    "app/src/main/**/*.java",
+    "app/src/main/**/*.kt",
+  ],
+
+  resource_dirs: [
+    "app/src/main/res/",
+  ],
+
+  kotlincflags: [
+    "-Xjvm-default=all",
+  ],
+
+  static_libs: [
+    "androidx.core_core",
+    "androidx.core_core-ktx",
+    "androidx.preference_preference",
+    "com.google.android.material_material",
+    "SettingsLib",
+    "kotlin-stdlib",
+    "kotlinx-coroutines-android",
+    "androidx.activity_activity-compose",
+    "androidx.compose.foundation_foundation",
+    "androidx.compose.material3_material3",
+    "androidx.compose.material_material-icons-extended",
+    "androidx.compose.runtime_runtime",
+    "androidx.compose.ui_ui",
+    "androidx.compose.ui_ui-tooling-preview",
+    "androidx.compose.animation_animation",
+    "androidx.lifecycle_lifecycle-runtime-compose",
+    "androidx.lifecycle_lifecycle-runtime-ktx",
+    "androidx.lifecycle_lifecycle-viewmodel-compose",
+  ],
+
+  optimize: {
+    enabled: false,
+  },
+
+  required: [
+    "default_permissions_org.omnirom.omnijaws",
+  ],
+
+  optional_uses_libs: [
+    "org.apache.http.legacy",
+    "androidx.window.extensions",
+    "androidx.window.sidecar"
+  ],
+}
+
+prebuilt_etc {
+  name: "default_permissions_org.omnirom.omnijaws", 
+  system_ext_specific: true,
+  src: "default_permissions_org.omnirom.omnijaws.xml",
+  sub_dir: "default-permissions",
+  filename_from_src: true,
+}

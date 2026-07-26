@@ -1,0 +1,9 @@
+<resources>
+    <dimen name="medium_text_size">18sp</dimen>
+    <dimen name="big_text_size">40sp</dimen>
+    <dimen name="current_height">90dp</dimen>
+    <dimen name="text_line_height">40dp</dimen>
+    <dimen name="forecast_text_size">16sp</dimen>
+    <dimen name="forecast_text_size_small">14sp</dimen>
+    <dimen name="header_text_size">24dp</dimen>
+</resources>

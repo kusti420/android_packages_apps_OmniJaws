@@ -1,0 +1,101 @@
+<resources>
+    <style name="Weather" parent="TextAppearance.Material3.BodyMedium" >
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@*android:string/config_bodyFontFamily</item>
+    </style>
+
+    <style name="WeatherSmall" parent="TextAppearance.Material3.BodySmall" >
+        <item name="android:textSize">12sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@*android:string/config_bodyFontFamily</item>
+    </style>
+
+    <style name="WeatherLarge" parent="TextAppearance.Material3.BodyLarge" >
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@*android:string/config_bodyFontFamily</item>
+    </style>
+
+    <style name="WeatherMedium" parent="TextAppearance.Material3.BodyLarge" >
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@*android:string/config_bodyFontFamily</item>
+    </style>
+
+    <style name="Theme.Settings" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">?attr/colorPrimary</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">?attr/isLightTheme</item>
+        <item name="android:windowLightNavigationBar">?attr/isLightTheme</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.Material3.DayNight.Dialog.Alert">
+        <item name="colorAccent">?attr/colorPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="dialogCornerRadius">8dp</item>
+    </style>
+
+    <style name="Theme.Activity" parent="Theme.Material3.DayNight.NoActionBar" >
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorAccent">?attr/colorPrimary</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+
+    <style name="Theme.OmniJaws.Compose" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
+        <item name="android:enforceStatusBarContrast">false</item>
+    </style>
+
+    <style name="AppTheme.Overlay" parent="ThemeOverlay.Material3.DynamicColors.DayNight">
+    </style>
+
+    <style name="Theme.Widget" parent="ThemeOverlay.Material3.DynamicColors.DayNight">
+    </style>
+
+    <style name="Theme.Widget.Light" parent="ThemeOverlay.Material3.DynamicColors.Light">
+    </style>
+
+    <style name="Theme.Widget.Dark" parent="ThemeOverlay.Material3.DynamicColors.Dark">
+    </style>
+
+    <style name="WeatherBaseText" parent="TextAppearance.Material3.BodyMedium">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ForecastWeatherText" parent="@style/WeatherBaseText">
+        <item name="android:textSize">@dimen/forecast_text_size</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="ForecastWeatherTextSmall" parent="@style/WeatherBaseText">
+        <item name="android:textSize">@dimen/forecast_text_size_small</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:fontFamily">@*android:string/config_bodyFontFamily</item>
+    </style>
+
+    <style name="DetailedWeatherText" parent="@style/WeatherBaseText">
+        <item name="android:textSize">@dimen/medium_text_size</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="HeaderWeatherText" parent="@style/WeatherBaseText">
+        <item name="android:textSize">@dimen/header_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="CurrentWeatherText" parent="@style/WeatherBaseText">
+        <item name="android:textSize">@dimen/big_text_size</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+</resources>
