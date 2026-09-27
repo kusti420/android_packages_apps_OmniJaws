@@ -62,6 +62,25 @@ public class Config {
     private static final String LEGACY_DEFAULT_ICON_PACK =
             "org.omnirom.omnijaws.google_new_light";
 
+    /**
+     * IchthysOS: providers tried, in order, when the selected one returns nothing (rate limit,
+     * outage). All keyless or with the baked key; the selected provider is skipped.
+     */
+    public static java.util.List<AbstractWeatherProvider> getFallbackProviders(Context context) {
+        final String selected = providerPref(
+                PreferenceManager.getDefaultSharedPreferences(context));
+        final java.util.List<AbstractWeatherProvider> out = new java.util.ArrayList<>();
+        for (String id : new String[] { "3", "1", "0" }) {
+            if (id.equals(selected)) continue;
+            switch (id) {
+                case "3": out.add(new OpenMeteoProvider(context)); break;
+                case "1": out.add(new METNorwayProvider(context)); break;
+                case "0": out.add(new OpenWeatherMapProvider(context)); break;
+            }
+        }
+        return out;
+    }
+
     public static AbstractWeatherProvider getProvider(Context context) {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);

@@ -368,12 +368,14 @@ public class WeatherUpdateService extends JobService {
                 boolean locationError = false;
                 try {
                     AbstractWeatherProvider provider = Config.getProvider(WeatherUpdateService.this);
+                    Location lastLocation = null;
                     int i = 0;
                     // retry max RETRY_MAX_NUM times
                     while (i < RETRY_MAX_NUM) {
                         if (!Config.isCustomLocation(WeatherUpdateService.this)) {
                             if (checkPermissions()) {
                                 Location location = getCurrentLocation();
+                                lastLocation = location;
                                 if (location != null) {
                                     w = provider.getLocationWeather(location, Config.isMetric(WeatherUpdateService.this));
                                 } else {
@@ -418,6 +420,23 @@ public class WeatherUpdateService extends JobService {
                             }
                         }
                         i++;
+                    }
+                    // IchthysOS: the selected provider gave nothing (e.g. HTTP 429 or an outage):
+                    // fall back to the other keyless providers for device-location weather.
+                    // Custom locations are skipped because their ids are provider-specific.
+                    if (w == null && !locationError && lastLocation != null) {
+                        final boolean metric = Config.isMetric(WeatherUpdateService.this);
+                        for (AbstractWeatherProvider fallback :
+                                Config.getFallbackProviders(WeatherUpdateService.this)) {
+                            Log.w(TAG, "falling back to " + fallback.getClass().getSimpleName());
+                            w = fallback.getLocationWeather(lastLocation, metric);
+                            if (w != null) {
+                                Config.setWeatherData(WeatherUpdateService.this, w);
+                                WeatherContentProvider.updateCachedWeatherInfo(
+                                        WeatherUpdateService.this);
+                                break;
+                            }
+                        }
                     }
                 } finally {
                     if (w == null) {
