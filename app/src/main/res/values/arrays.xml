@@ -53,15 +53,13 @@
         <item>4</item>
         <item>3</item>
         <item>2</item>
-        <item>5</item>
     </string-array>
 
     <!-- IchthysOS weather settings: Open-Meteo + MET Norway are keyless & most accurate;
-         wttr.in is a keyless fallback; OpenWeatherMap uses the free 2.5 API + a baked key. -->
+         wttr.in was dropped (rate-limited, HTTP 429); OpenWeatherMap uses the free 2.5 API + a baked key. -->
     <string-array name="weather_provider_entries" translatable="false">
         <item>@string/omnijaws_provider_openmeteo</item>
         <item>@string/omnijaws_provider_metnorway</item>
-        <item>@string/omnijaws_provider_wttrin</item>
         <item>@string/omnijaws_provider_openweathermap</item>
     </string-array>
     <string-array name="weather_provider_values" translatable="false">

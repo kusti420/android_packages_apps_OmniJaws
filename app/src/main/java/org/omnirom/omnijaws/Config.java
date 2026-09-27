@@ -28,6 +28,19 @@ import androidx.preference.PreferenceManager;
 
 public class Config {
     public static final String PREF_KEY_PROVIDER = "provider";
+
+    /**
+     * IchthysOS: Open-Meteo (3) is the default: keyless and not rate-limited. wttr.in (5) answered
+     * HTTP 429 most of the time and was removed from the list; a stored "5" maps to Open-Meteo.
+     */
+    private static String providerPref(android.content.SharedPreferences prefs) {
+        final String p = prefs.getString(PREF_KEY_PROVIDER, "3");
+        if ("5".equals(p)) {
+            prefs.edit().putString(PREF_KEY_PROVIDER, "3").apply();
+            return "3";
+        }
+        return p;
+    }
     public static final String PREF_KEY_UNITS = "units";
     public static final String PREF_KEY_LOCATION_ID = "location_id";
     public static final String PREF_KEY_LOCATION_NAME = "location_name";
@@ -53,7 +66,7 @@ public class Config {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
-        switch (prefs.getString(PREF_KEY_PROVIDER, "1")) {
+        switch (providerPref(prefs)) {
             case "0":
                 return new OpenWeatherMapProvider(context);
             case "1":
@@ -73,7 +86,7 @@ public class Config {
         SharedPreferences prefs = PreferenceManager
                 .getDefaultSharedPreferences(context);
 
-        String provider = prefs.getString(PREF_KEY_PROVIDER, "1");
+        String provider = providerPref(prefs);
         switch (provider) {
             case "0":
                 return "OpenWeatherMap";

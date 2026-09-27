@@ -73,6 +73,10 @@ public abstract class AbstractWeatherProvider {
     private String getCoordinatesLocalityWithGoogle(String coordinate) {
         double latitude = Double.valueOf(coordinate.substring(4, coordinate.indexOf("&")));
         double longitude = Double.valueOf(coordinate.substring(coordinate.indexOf("lon=") + 4));
+        // IchthysOS: no geocoder backend without Google/microG location; go straight to Nominatim.
+        if (!Geocoder.isPresent()) {
+            return null;
+        }
         Geocoder geocoder = new Geocoder(mContext.getApplicationContext(), Locale.getDefault());
         try {
             List<Address> listAddresses = geocoder.getFromLocation(latitude, longitude, 1);
