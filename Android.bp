@@ -38,8 +38,18 @@ android_app {
     "androidx.lifecycle_lifecycle-viewmodel-compose",
   ],
 
+  // IchthysOS: R8 in shrink-only mode. The dex was 55 MB, nearly all of it unused classes
+  // from material-icons-extended and the other static libs; the app has 16 source files and
+  // no reflection, so removing unreachable code is safe. No optimization or renaming, to keep
+  // behaviour and stack traces as they were.
+  // shrink_resources must stay off: SystemUI (OmniJawsClient) and the icon-pack code look the
+  // weather drawables up by name (getIdentifier), which a resource shrinker can't see.
   optimize: {
-    enabled: false,
+    enabled: true,
+    shrink: true,
+    optimize: false,
+    obfuscate: false,
+    shrink_resources: false,
   },
 
   required: [
