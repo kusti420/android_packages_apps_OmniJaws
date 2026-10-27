@@ -62,10 +62,13 @@
         <item>@string/omnijaws_provider_metnorway</item>
         <item>@string/omnijaws_provider_openweathermap</item>
     </string-array>
+    <!-- IchthysOS: one value per entry, in the same order. wttr.in ("5") left the entries but
+         its value stayed, so OpenWeatherMap ("0") sat at index 3 of a 3-entry list: a stored
+         "0" crashed the settings screen (ListPreference.getEntry AIOOBE) and picking
+         OpenWeatherMap saved "5", which Config maps to Open-Meteo. -->
     <string-array name="weather_provider_values" translatable="false">
         <item>3</item>
         <item>1</item>
-        <item>5</item>
         <item>0</item>
     </string-array>
 
