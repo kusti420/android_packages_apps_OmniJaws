@@ -38,14 +38,7 @@
         android:defaultValue="3"
         android:dependency="enable" />
 
-    <ListPreference
-        android:key="units"
-        android:title="@string/weather_units_title"
-        android:summary="%s"
-        android:entries="@array/weather_units_entries"
-        android:entryValues="@array/weather_units_values"
-        android:defaultValue="0"
-        android:dependency="enable" />
+    <!-- IchthysOS: units are a shared value now (Settings > Guard > Rules > Shared values). -->
 
     <ListPreference
         android:key="update_interval"

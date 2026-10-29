@@ -191,6 +191,10 @@ public class WeatherUpdateService extends JobService {
             Config.setLastKnownLocation(this, location.getLatitude(), location.getLongitude());
         } else {
             Location saved = Config.getLastKnownLocation(this);
+            if (saved == null) {
+                // IchthysOS: the system's own last fix (TwilightService keeps it across reboots).
+                saved = Config.getSharedLastFix(this);
+            }
             if (saved != null) {
                 Log.d(TAG, "getCurrentLocation: using IchthysOS saved location fallback");
                 location = saved;
@@ -371,8 +375,16 @@ public class WeatherUpdateService extends JobService {
                     Location lastLocation = null;
                     int i = 0;
                     // retry max RETRY_MAX_NUM times
+                    // IchthysOS: the active place from Guard (a trip under way, else the home
+                    // city) wins over the device location and needs no location permission.
+                    final Location manual =
+                            Config.getSharedManualLocation(WeatherUpdateService.this);
                     while (i < RETRY_MAX_NUM) {
-                        if (!Config.isCustomLocation(WeatherUpdateService.this)) {
+                        if (manual != null) {
+                            lastLocation = manual;
+                            w = provider.getLocationWeather(manual,
+                                    Config.isMetric(WeatherUpdateService.this));
+                        } else if (!Config.isCustomLocation(WeatherUpdateService.this)) {
                             if (checkPermissions()) {
                                 Location location = getCurrentLocation();
                                 lastLocation = location;

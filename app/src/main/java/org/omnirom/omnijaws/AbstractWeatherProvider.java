@@ -129,7 +129,11 @@ public abstract class AbstractWeatherProvider {
 
     protected String getWeatherDataLocality(String coordinates) {
         String city;
-        if (Config.isCustomLocation(mContext)) {
+        // IchthysOS: the fixed place's name from Guard (Shared values).
+        final String manualName = Config.getSharedManualLocationName(mContext);
+        if (!TextUtils.isEmpty(manualName)) {
+            city = manualName;
+        } else if (Config.isCustomLocation(mContext)) {
             city = Config.getLocationName(mContext);
             if (TextUtils.isEmpty(city)) {
                 city = getCoordinatesLocality(coordinates);

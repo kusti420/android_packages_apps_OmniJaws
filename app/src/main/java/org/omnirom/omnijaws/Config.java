@@ -121,10 +121,61 @@ public class Config {
     }
 
     public static boolean isMetric(Context context) {
-        SharedPreferences prefs = PreferenceManager
-                .getDefaultSharedPreferences(context);
+        // IchthysOS: Guard's shared units (Secure ichthys_units, unset = metric) decide; this
+        // app's own units preference is no longer offered.
+        return !"imperial".equals(android.provider.Settings.Secure.getString(
+                context.getContentResolver(), SHARED_UNITS));
+    }
 
-        return prefs.getString(PREF_KEY_UNITS, "0").equals("0");
+    // IchthysOS: the shared values Guard sets for the whole system (Rules -> Shared values).
+    // The location keys are readable by system apps only (SettingsProvider hides them).
+    private static final String SHARED_UNITS = "ichthys_units";
+    /** "lat,lon|name|kind": a trip under way, else the home city (IchthysPlacesService). */
+    private static final String SHARED_LOCATION_ACTIVE = "ichthys_location_active";
+    private static final String SHARED_LOCATION_LAST_FIX = "ichthys_location_last_fix";
+
+    /** IchthysOS: the active place (trip or home city), or null when none is set. */
+    public static android.location.Location getSharedManualLocation(Context context) {
+        final String active = android.provider.Settings.Secure.getString(
+                context.getContentResolver(), SHARED_LOCATION_ACTIVE);
+        if (active == null) {
+            return null;
+        }
+        final int bar = active.indexOf('|');
+        return parseLatLon(bar < 0 ? active : active.substring(0, bar), "ichthys_place");
+    }
+
+    /** IchthysOS: the active place's name (e.g. "Tallinn"), or null. */
+    public static String getSharedManualLocationName(Context context) {
+        final String active = android.provider.Settings.Secure.getString(
+                context.getContentResolver(), SHARED_LOCATION_ACTIVE);
+        if (active == null) {
+            return null;
+        }
+        final String[] parts = active.split("\\|", -1);
+        return parts.length > 1 && !parts[1].isEmpty() ? parts[1] : null;
+    }
+
+    /** IchthysOS: the system's last real location fix (kept across reboots), or null. */
+    public static android.location.Location getSharedLastFix(Context context) {
+        return parseLatLon(android.provider.Settings.Secure.getString(
+                context.getContentResolver(), SHARED_LOCATION_LAST_FIX), "ichthys_last_fix");
+    }
+
+    private static android.location.Location parseLatLon(String s, String provider) {
+        if (s == null) {
+            return null;
+        }
+        try {
+            final int comma = s.indexOf(',');
+            final android.location.Location l = new android.location.Location(provider);
+            l.setLatitude(Double.parseDouble(s.substring(0, comma)));
+            l.setLongitude(Double.parseDouble(s.substring(comma + 1)));
+            l.setTime(System.currentTimeMillis());
+            return l;
+        } catch (RuntimeException e) {
+            return null;
+        }
     }
 
     public static boolean isCustomLocation(Context context) {
