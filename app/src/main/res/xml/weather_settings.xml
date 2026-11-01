@@ -17,8 +17,12 @@
      Minimal (non-Compose) OmniJaws weather settings. The original Compose
      SettingsActivity was dropped in the headless strip; this restores an
      enable + provider/units/interval screen so weather can actually be turned
-     on and configured. Location is device-based (GPS/network); keys map 1:1 to
-     Config.PREF_KEY_*.
+     on and configured. Keys map 1:1 to Config.PREF_KEY_*.
+
+     IchthysOS: the location is the shared place from Settings > Guard > Rules > Shared values
+     (a trip under way, else the home city; IchthysPlacesService), and only without one this
+     device's location. The old custom-location preferences have no UI; the shared place wins
+     over them (WeatherUpdateService).
 -->
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -39,6 +43,15 @@
         android:dependency="enable" />
 
     <!-- IchthysOS: units are a shared value now (Settings > Guard > Rules > Shared values). -->
+
+    <!-- IchthysOS: where the weather is for; SettingsActivity fills in the active place. -->
+    <Preference
+        android:key="location_info"
+        android:title="@string/weather_location_title"
+        android:summary="@string/weather_location_device"
+        android:selectable="false"
+        android:persistent="false"
+        android:dependency="enable" />
 
     <ListPreference
         android:key="update_interval"

@@ -37,7 +37,11 @@
 
     <!-- IchthysOS minimal weather settings -->
     <string name="weather_enable_title">Enable weather</string>
-    <string name="weather_enable_summary">Fetch weather for the lock screen and status bar (uses this device\'s location)</string>
+    <string name="weather_enable_summary">Fetch weather for the lock screen and status bar</string>
+    <!-- IchthysOS: the Location row; the place comes from Settings > Guard > Rules > Shared values -->
+    <string name="weather_location_title">Location</string>
+    <string name="weather_location_shared">%1$s · set in Settings › Guard › Rules › Shared values</string>
+    <string name="weather_location_device">This device\'s location · set a home city or a trip in Settings › Guard › Rules › Shared values</string>
     <string name="weather_provider_title">Weather provider</string>
     <string name="weather_units_title">Units</string>
     <string name="weather_units_metric">Metric (°C)</string>

@@ -22,10 +22,13 @@ import org.omnirom.omnijaws.WeatherInfo.DayForecast;
 import android.content.ContentProvider;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.net.Uri;
+import android.os.Binder;
+import android.os.Process;
 import android.util.Log;
 
 public class WeatherContentProvider extends ContentProvider {
@@ -166,7 +169,8 @@ public class WeatherContentProvider extends ContentProvider {
                     .add(COLUMN_PROVIDER, Config.getProviderId(mContext))
                     .add(COLUMN_INTERVAL, Config.getUpdateInterval(mContext))
                     .add(COLUMN_UNITS, Config.isMetric(mContext) ? 0 : 1)
-                    .add(COLUMN_LOCATION, Config.isCustomLocation(mContext) ? Config.getLocationName(mContext) : "")
+                    // IchthysOS: the shared place (Guard) wins over the old custom location.
+                    .add(COLUMN_LOCATION, locationName())
                     .add(COLUMN_SETUP, !Config.isSetupDone(mContext) && sCachedWeatherInfo == null ? 0 : 1)
                     .add(COLUMN_ICON_PACK, iconPack);
 
@@ -262,6 +266,29 @@ public class WeatherContentProvider extends ContentProvider {
                 if (DEBUG) Log.i(TAG, "update: " + uri.toString() + " " + values);
                 WeatherUpdateService.scheduleUpdateNow(mContext);
             }
+        } else if (projectionType == URI_TYPE_SETTINGS && values != null
+                && values.containsKey(COLUMN_ICON_PACK)) {
+            // IchthysOS: Settings picks the icon pack (its Weather page, with icon samples) and
+            // writes it here. Only the system (Settings runs as it) may: the provider has no
+            // write permission of its own.
+            if (Binder.getCallingUid() != Process.SYSTEM_UID
+                    && Binder.getCallingUid() != Process.myUid()) {
+                return 0;
+            }
+            final String pack = values.getAsString(COLUMN_ICON_PACK);
+            if (pack == null || pack.isEmpty()) {
+                return 0;
+            }
+            Config.setIconPack(mContext, pack);
+            // The same nudge SettingsActivity gives: SystemUI's OmniJawsClient re-reads the
+            // settings and reloads the icon package on this broadcast (no network refetch).
+            try {
+                mContext.sendBroadcast(new Intent("org.omnirom.omnijaws.WEATHER_UPDATE")
+                        .addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES));
+            } catch (Exception e) {
+                // never let a settings change take the provider down
+            }
+            return 1;
         }
         return 0;
     }
@@ -276,5 +303,14 @@ public class WeatherContentProvider extends ContentProvider {
     public static void notifySettingsChanged(Context context) {
         context.getContentResolver().notifyChange(
                 Uri.parse("content://" + WeatherContentProvider.AUTHORITY + "/settings"), null);
+    }
+
+    /** IchthysOS: the place the weather is for: Guard's shared place, else the custom one, else "". */
+    private String locationName() {
+        final String shared = Config.getSharedManualLocationName(mContext);
+        if (shared != null) {
+            return shared;
+        }
+        return Config.isCustomLocation(mContext) ? Config.getLocationName(mContext) : "";
     }
 }

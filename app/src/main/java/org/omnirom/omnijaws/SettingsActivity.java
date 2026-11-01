@@ -30,7 +30,8 @@ import android.view.WindowInsets;
  * Minimal weather settings for OmniJaws. The Compose SettingsActivity was
  * dropped in the headless strip; this framework-preferences replacement lets
  * the user enable weather and pick a provider/units/interval. Location is
- * device-based (GPS/network). Uses the default SharedPreferences that
+ * the shared place from Settings > Guard (IchthysOS), else device-based
+ * (GPS/network). Uses the default SharedPreferences that
  * {@link Config} reads. Any change kicks a fresh fetch so the lockscreen /
  * status-bar weather (which read this app's provider) light up.
  */
@@ -55,6 +56,8 @@ public class SettingsActivity extends Activity {
     public static class WeatherPrefsFragment extends PreferenceFragment
             implements SharedPreferences.OnSharedPreferenceChangeListener {
 
+        private static final String KEY_LOCATION_INFO = "location_info";
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -66,6 +69,15 @@ public class SettingsActivity extends Activity {
             super.onResume();
             getPreferenceManager().getSharedPreferences()
                     .registerOnSharedPreferenceChangeListener(this);
+            // IchthysOS: say which place the weather is for (Guard's shared place, else this
+            // device's location); it is changed in Settings > Guard > Rules > Shared values.
+            final Preference location = findPreference(KEY_LOCATION_INFO);
+            if (location != null) {
+                final String name = Config.getSharedManualLocationName(getActivity());
+                location.setSummary(name != null
+                        ? getString(R.string.weather_location_shared, name)
+                        : getString(R.string.weather_location_device));
+            }
         }
 
         @Override
