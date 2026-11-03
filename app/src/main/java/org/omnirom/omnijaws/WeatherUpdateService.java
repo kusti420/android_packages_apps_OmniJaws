@@ -151,7 +151,6 @@ public class WeatherUpdateService extends JobService {
         }
 
         Location location = getBestLastKnownLocation(lm);
-        Log.d(TAG, "getCurrentLocation: best last known = " + describe(location));
 
         // Use a recent, accurate last-known fix as-is (weather doesn't change
         // meaningfully over a few minutes / a short distance). Only pay for a
@@ -201,14 +200,13 @@ public class WeatherUpdateService extends JobService {
             }
         }
 
-        Log.d(TAG, "getCurrentLocation: returning " + describe(location));
         return location;
     }
 
+    /** IchthysOS: provider, accuracy and age only; the coordinates never go to the log. */
     private static String describe(Location l) {
         if (l == null) return "null";
-        return l.getProvider() + " (" + l.getLatitude() + "," + l.getLongitude()
-                + ") acc=" + l.getAccuracy() + "m age="
+        return l.getProvider() + " acc=" + l.getAccuracy() + "m age="
                 + ((System.currentTimeMillis() - l.getTime()) / 1000) + "s";
     }
 

@@ -97,7 +97,6 @@ public abstract class AbstractWeatherProvider {
         }
         double latitude = Double.valueOf(coordinate.substring(4, coordinate.indexOf("&")));
         double longitude = Double.valueOf(coordinate.substring(coordinate.indexOf("lon=") + 4));
-        Log.d(TAG, "getCoordinatesLocality " + latitude + " " + longitude);
 
         String lang = Locale.getDefault().getLanguage().replaceFirst("_", "-");
         String url = String.format(Locale.US, URL_LOCALITY, latitude, longitude, lang);
